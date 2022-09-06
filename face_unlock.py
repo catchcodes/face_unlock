@@ -63,6 +63,8 @@ while True:
 			# Draw a box around the face using the Pillow module
 			#draw.rectangle(((left, top), (right, bottom)), outline=(0, 0, 255))
 			if name not in "unknown":
+				# In windows os, we cannot programmatically unlock workstation
+				# because unlock operation is handled by LSA (lsass.exe) and you must press Ctrl+Alt+Del from keyboard.
 				os.popen('gnome-screensaver-command -d && xdotool key Return')
 
 			# There's a bug in Pillow where it blows up with non-UTF-8 text
@@ -80,7 +82,9 @@ while True:
 			#draw.rectangle(((left, bottom - text_height - 10), (right, bottom)), fill=(0, 0, 255), outline=(0, 0, 255))
 			#draw.text((left + 6, bottom - text_height - 5), name, fill=(255, 255, 255, 255))
 	else:
-		os.popen('gnome-screensaver-command -a')
+		os.popen('gnome-screensaver-command -a')  
+		# Use the following line of code to lock the screen in Windows
+		# os.popen('Rundll32.exe user32.dll,LockWorkStation')
 	#print(predictions)
 	#cv2.imshow("output", image)	
 	cv2.imshow("output image",image1)	
